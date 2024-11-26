@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "2f229433-1b98-42f8-9d3d-459ed44350d8",
+		"name": "DND",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39343107"
+	},
+	"item": [
+		{
+			"name": "GET-Sucesso",
+			"item": [
+				{
+					"name": "Busca informações sobre um dragão negro adulto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"var responseJSON = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Dragon stats in response body matches values\", function () {\r",
+									"    pm.expect(responseJSON.strength).to.equal(23);\r",
+									"    pm.expect(responseJSON.dexterity).to.equal(14);\r",
+									"    pm.expect(responseJSON.constitution).to.equal(21);\r",
+									"    pm.expect(responseJSON.intelligence).to.equal(14);\r",
+									"    pm.expect(responseJSON.wisdom).to.equal(13);\r",
+									"    pm.expect(responseJSON.charisma).to.equal(17);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}monsters/adult-black-dragon",
+							"host": [
+								"{{baseURL}}monsters"
+							],
+							"path": [
+								"adult-black-dragon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca todas as classes disponiveis",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify if 'name' for each result is in classNames\", function () {\r",
+									"    let classNames = [\"Barbarian\",\"Bard\",\"Cleric\",\"Druid\",\"Fighter\",\"Monk\",\"Paladin\",\"Ranger\",\"Rogue\",\"Sorcerer\",\"Warlock\",\"Wizard\"];\r",
+									"    let results = pm.response.json().results;\r",
+									"    results.forEach(result => {\r",
+									"        pm.expect(classNames).to.include(result.name);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}classes",
+							"host": [
+								"{{baseURL}}classes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca magia power word kill",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify if 'components' is V, S or M\", function () {\r",
+									"    let results = pm.response.json();\r",
+									"    results.components.forEach(result => {\r",
+									"        pm.expect(result).to.be.oneOf(['V', 'S', 'M']);\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}spells/power-word-kill",
+							"host": [
+								"{{baseURL}}spells"
+							],
+							"path": [
+								"power-word-kill"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca informações sobre a classe rogue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify the class name and hit die in the response body\", function () {\r",
+									"    pm.expect(pm.response.json().name).to.equal(\"Rogue\");\r",
+									"    pm.expect(pm.response.json().hit_die).to.exist;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}classes/rogue",
+							"host": [
+								"{{baseURL}}classes"
+							],
+							"path": [
+								"rogue"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET-Falha",
+			"item": [
+				{
+					"name": "Busca informações sobre um dragão roxo adulto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}monsters/adult-purple-dragon",
+							"host": [
+								"{{baseURL}}monsters"
+							],
+							"path": [
+								"adult-purple-dragon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca informações sobre a classe roge",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}classes/roge",
+							"host": [
+								"{{baseURL}}classes"
+							],
+							"path": [
+								"roge"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
